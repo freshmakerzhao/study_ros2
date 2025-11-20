@@ -13,7 +13,7 @@ public:
     Subscriber() : Node("Subscriber")
     {
         subscription_ = this->create_subscription<std_msgs::msg::String>(
-            "/topic", 
+            "topic", 
             rclcpp::QoS(rclcpp::KeepLast(10)),
             std::bind(&Subscriber::topic_callback, this, _1)
         );
