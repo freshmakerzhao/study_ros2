@@ -1,4 +1,4 @@
 build
 install
 share
-log
+log_codeql_detected_source_root
