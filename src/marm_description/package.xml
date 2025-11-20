@@ -7,16 +7,19 @@
   <maintainer email="dsupermaker@163.com">hcx</maintainer>
   <license>MIT</license>
 
-  <!-- 构建工具：ament_cmake -->
+  <!-- 构建工具 -->
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <!-- 运行依赖：运行时用到的工具 -->
+  <!-- 运行时依赖 -->
   <exec_depend>xacro</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
   <exec_depend>joint_state_publisher</exec_depend>
   <exec_depend>joint_state_publisher_gui</exec_depend>
   <exec_depend>rviz2</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
 
   <export>
+    <build_type>ament_cmake</build_type>
   </export>
 </package>

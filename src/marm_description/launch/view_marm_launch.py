@@ -18,7 +18,7 @@ def generate_launch_description():
     xacro_file = PathJoinSubstitution([pkg_share, 'urdf', 'marm.xacro'])
 
     # 用 xacro 生成 robot_description
-    robot_description = Command(['xacro ', xacro_file])
+    robot_description = Command(['xacro', ' ', xacro_file])
 
     # robot_state_publisher 节点
     robot_state_publisher_node = Node(
@@ -45,8 +45,8 @@ def generate_launch_description():
         condition=IfCondition(use_gui)
     )
 
-    # RViz2 配置文件：marm_description/urdf.rviz
-    rviz_config = PathJoinSubstitution([pkg_share, 'urdf.rviz'])
+    # RViz2 配置文件
+    rviz_config = PathJoinSubstitution([pkg_share, 'urdf_ros2.rviz'])
 
     rviz_node = Node(
         package='rviz2',
