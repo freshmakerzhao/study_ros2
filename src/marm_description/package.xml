@@ -2,9 +2,9 @@
 <package format="3">
   <name>marm_description</name>
   <version>0.0.1</version>
-  <description>The marm_description package (ROS 2 version)</description>
+  <description>The marm_description package</description>
 
-  <maintainer email="dsupermaker@163.com">hcx</maintainer>
+  <maintainer email="dsupermaker@163.com">zs</maintainer>
   <license>MIT</license>
 
   <!-- 构建工具 -->
