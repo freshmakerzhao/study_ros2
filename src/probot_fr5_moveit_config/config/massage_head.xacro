@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="massage_head">
+    
+    <!-- Massage Head Link (半球形按摩头) -->
+    <link name="massage_head">
+        <inertial>
+            <origin xyz="0 0 0.02" rpy="0 0 0"/>
+            <mass value="0.15"/>
+            <inertia ixx="0.00006" ixy="0.0" ixz="0.0"
+                     iyy="0.00006" iyz="0.0" izz="0.00006"/>
+        </inertial>
+        
+        <!-- 可视化：蓝色半球 -->
+        <visual>
+            <origin xyz="0 0 0.02" rpy="0 0 0"/>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+            <material name="SoftBlue">
+                <color rgba="0.3 0.7 1.0 0.8"/>
+            </material>
+        </visual>
+        
+        <!-- 碰撞：用于 Gazebo 仿真 -->
+        <collision>
+            <origin xyz="0 0 0.02" rpy="0 0 0"/>
+            <geometry>
+                <sphere radius="0.04"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 连接到机械臂末端（wrist3_link）的固定关节 -->
+    <joint name="wrist3_to_massage_head" type="fixed">
+        <parent link="wrist3_link"/>
+        <child link="massage_head"/>
+        <origin xyz="0 0 0.094" rpy="0 0 0"/>
+        <!-- 注意：wrist3_link的惯性中心在z=0.076，我们在它上方再加0.02，
+             总高度约0.094，确保按摩头刚好接在末端法兰上方 -->
+    </joint>
+
+    <!-- 定义一个虚拟的工具坐标系（Tool Center Point, TCP） -->
+    <link name="tool_tcp"/>
+    <joint name="massage_head_to_tcp" type="fixed">
+        <parent link="massage_head"/>
+        <child link="tool_tcp"/>
+        <origin xyz="0 0 0.04" rpy="0 0 0"/>
+        <!-- TCP在按摩头球心，便于运动规划 -->
+    </joint>
+
+</robot>
