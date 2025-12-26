@@ -1,6 +1,6 @@
 moveit_setup_assistant_config:
   urdf:
-    package: fairino_description
+    package: probot_fr5_description
     relative_path: urdf/fairino5_v6.urdf
   srdf:
     relative_path: config/fairino5_v6_robot.srdf
