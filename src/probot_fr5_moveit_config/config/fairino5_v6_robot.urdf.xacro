@@ -1,16 +1,36 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="fairino5_v6_robot">
     <xacro:arg name="initial_positions_file" default="initial_positions.yaml" />
+    <!-- 默认false，不调用gazebo -->
+    <xacro:arg name="use_sim" default="false" />
 
-    <!-- Import fairino5_v6_robot urdf file -->
+    <!-- Import base URDF -->
     <xacro:include filename="$(find probot_fr5_description)/urdf/fairino5_v6.urdf" />
 
     <!-- Import control_xacro -->
-    <xacro:include filename="fairino5_v6_robot.ros2_control.xacro" />
+    <xacro:include filename="$(find probot_fr5_moveit_config)/config/fairino5_v6_robot.ros2_control.xacro" />
 
     <!-- 引入按摩头 -->
-    <xacro:include filename="massage_head.xacro" />
+    <xacro:include filename="$(find probot_fr5_moveit_config)/config/massage_head.xacro" />
 
-    <xacro:fairino5_v6_robot_ros2_control name="FakeSystem" initial_positions_file="$(arg initial_positions_file)"/>
+    <!-- use_sim 为true时，导入gazebo_ros2_control -->
+    <xacro:if value="$(arg use_sim)">
+        <gazebo>
+        <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+            <parameters>$(find probot_fr5_gazebo)/config/ros2_controllers.yaml</parameters>
+        </plugin>
+        </gazebo>
+    </xacro:if>
 
+    <!--use_sim 为true时，例化 ros2_control-->
+    <xacro:if value="$(arg use_sim)">
+        <xacro:fairino5_v6_robot_ros2_control name="GazeboSystem"
+        initial_positions_file="$(arg initial_positions_file)"/>
+    </xacro:if>
+
+    <!--use_sim 为false时，仅在rviz中-->
+    <xacro:unless value="$(arg use_sim)">
+        <xacro:fairino5_v6_robot_ros2_control name="FakeSystem"
+        initial_positions_file="$(arg initial_positions_file)"/>
+    </xacro:unless>
 </robot>
